@@ -1,6 +1,6 @@
 [package]
 name = "huextract"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["echo-devim <devim@outlook.it>"]
 edition = "2021"
 
