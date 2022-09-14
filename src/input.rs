@@ -134,7 +134,7 @@ impl Input {
                 extract_list = extract_list
                     .into_iter()
                     .enumerate()
-                    .filter(|(i, _)| options.id.iter().any(|j| j == i))
+                    .filter(|&(i, _)| options.id.iter().any(|&j| j - 1 == i))
                     .map(|(_, e)| e)
                     .collect();
             }
