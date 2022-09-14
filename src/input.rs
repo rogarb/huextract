@@ -126,7 +126,20 @@ impl Input {
     /// Extract the content of the img files to disk
     pub fn extract_img(&mut self, options: ExtractOptions) -> Result<(), Error> {
         let mut threads = Vec::new();
-        for part in self.img_parts.clone() {
+        let mut extract_list = self.img_parts.clone();
+        if !options.id.is_empty() {
+            if options.id.iter().any(|&i| i < 1 || i > extract_list.len()) {
+                return Err(Error::from("Invalid ID. See ID column of list command"));
+            } else {
+                extract_list = extract_list
+                    .into_iter()
+                    .enumerate()
+                    .filter(|(i, _)| options.id.iter().any(|j| j == i))
+                    .map(|(_, e)| e)
+                    .collect();
+            }
+        }
+        for part in extract_list {
             let filename = format!("{}.img", part.header.filename()?);
             let offset = part.offset + part.header.headersize();
             let size = part.header.filesize() as usize;

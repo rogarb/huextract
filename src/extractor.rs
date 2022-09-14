@@ -73,6 +73,12 @@ pub struct ExtractOptions {
     /// Multithreaded checksum verification.
     #[clap(short, long)]
     pub multithreaded: bool,
+    /// Extract corresponding ID number (see the output of the list command).
+    ///
+    /// This option can be specified multiple times, in order to extract specific
+    /// files.
+    #[clap(short, long)]
+    pub id: Vec<usize>,
 }
 
 impl Extractor {
